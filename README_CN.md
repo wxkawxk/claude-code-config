@@ -19,7 +19,7 @@
 
 ```bash
 # 下载配置文件到家目录
-curl -o ~/CLAUDE.md https://raw.githubusercontent.com/你的用户名/claude-code-config/main/CLAUDE.md
+curl -o ~/CLAUDE.md https://raw.githubusercontent.com/wxkawxk/claude-code-config/main/CLAUDE.md
 
 # 根据你的实际情况修改配置
 nano ~/CLAUDE.md
@@ -33,8 +33,8 @@ mkdir -p ~/.git-hooks
 git config --global core.hooksPath ~/.git-hooks
 
 # 下载 hooks
-curl -o ~/.git-hooks/pre-commit https://raw.githubusercontent.com/你的用户名/claude-code-config/main/hooks/pre-commit
-curl -o ~/.git-hooks/commit-msg https://raw.githubusercontent.com/你的用户名/claude-code-config/main/hooks/commit-msg
+curl -o ~/.git-hooks/pre-commit https://raw.githubusercontent.com/wxkawxk/claude-code-config/main/hooks/pre-commit
+curl -o ~/.git-hooks/commit-msg https://raw.githubusercontent.com/wxkawxk/claude-code-config/main/hooks/commit-msg
 
 # 添加执行权限
 chmod +x ~/.git-hooks/pre-commit
@@ -173,7 +173,7 @@ MIT License
 
 ## 👤 作者
 
-[@你的用户名](https://github.com/你的用户名)
+[@wxkawxk](https://github.com/wxkawxk)
 
 ---
 
