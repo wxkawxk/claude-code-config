@@ -99,7 +99,7 @@ mkdir -p ~/.git-hooks
 git config --global core.hooksPath ~/.git-hooks
 
 # 下载 pre-commit hook
-curl -o ~/.git-hooks/pre-commit https://raw.githubusercontent.com/你的用户名/claude-code-config/main/hooks/pre-commit
+curl -o ~/.git-hooks/pre-commit https://raw.githubusercontent.com/wxkawxk/claude-code-config/main/hooks/pre-commit
 chmod +x ~/.git-hooks/pre-commit
 ```
 
