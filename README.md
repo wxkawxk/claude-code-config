@@ -1,6 +1,13 @@
-# Claude Code 配置文件
+# Claude Code Configuration
 
-一份面向非程序员的 Claude Code 配置文件，让 AI 成为你的 CTO。
+[![GitHub stars](https://img.shields.io/github/stars/wxkawxk/claude-code-config?style=social)](https://github.com/wxkawxk/claude-code-config)
+[![GitHub forks](https://img.shields.io/github/forks/wxkawxk/claude-code-config?style=social)](https://github.com/wxkawxk/claude-code-config/fork)
+[![GitHub license](https://img.shields.io/github/license/wxkawxk/claude-code-config)](https://github.com/wxkawxk/claude-code-config/blob/main/LICENSE)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/wxkawxk/claude-code-config/pulls)
+
+English | [简体中文](README_CN.md)
+
+A Claude Code configuration file for non-programmers - Let AI be your CTO.
 
 ## 特性
 
