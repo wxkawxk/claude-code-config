@@ -1,0 +1,35 @@
+#!/bin/bash
+# 全局 Git Commit-msg Hook
+# 功能：规范 commit message 格式
+
+COMMIT_MSG_FILE=$1
+COMMIT_MSG=$(cat "$COMMIT_MSG_FILE")
+
+# 跳过 merge commit
+if echo "$COMMIT_MSG" | grep -q "^Merge"; then
+  exit 0
+fi
+
+# 检查是否为空
+if [ -z "$(echo "$COMMIT_MSG" | tr -d '[:space:]')" ]; then
+  echo "❌ 错误：commit message 不能为空"
+  exit 1
+fi
+
+# 检查最小长度（至少 5 个字符）
+if [ ${#COMMIT_MSG} -lt 5 ]; then
+  echo "❌ 错误：commit message 太短，至少需要 5 个字符"
+  echo "   当前：$COMMIT_MSG"
+  exit 1
+fi
+
+# 建议格式（不强制）
+if ! echo "$COMMIT_MSG" | grep -qE "^(feat|fix|docs|style|refactor|test|chore|perf|build|ci|revert):|^[A-Z]|^[a-z]+:"; then
+  echo "💡 提示：建议使用规范的 commit message 格式"
+  echo "   例如：feat: 添加用户登录功能"
+  echo "   或者：修复登录页面样式问题"
+  echo "   当前：$COMMIT_MSG"
+  echo ""
+fi
+
+exit 0

@@ -1,0 +1,51 @@
+#!/bin/bash
+# 全局 Git Pre-commit Hook
+# 功能：检查敏感信息、清理调试日志
+
+echo "🔍 运行 pre-commit 检查..."
+
+# 1. 检查敏感文件
+SENSITIVE_FILES=".env .env.local .env.production credentials.json secrets.json config/secrets.yml"
+for file in $SENSITIVE_FILES; do
+  if git diff --cached --name-only | grep -q "^$file$"; then
+    echo "❌ 错误：尝试提交敏感文件 $file"
+    echo "   请将其添加到 .gitignore"
+    exit 1
+  fi
+done
+
+# 2. 检查是否包含敏感关键词
+if git diff --cached | grep -iE "(password|secret|api_key|private_key|token).*=.*['\"].*['\"]"; then
+  echo "⚠️  警告：检测到可能的敏感信息（密码/密钥/token）"
+  echo "   请确认是否为测试数据，如果是真实密钥请移除"
+  read -p "   确认继续提交？(y/N) " -n 1 -r
+  echo
+  if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+    exit 1
+  fi
+fi
+
+# 3. 检查调试日志（Python）
+PYTHON_FILES=$(git diff --cached --name-only --diff-filter=ACM | grep '\.py$')
+if [ -n "$PYTHON_FILES" ]; then
+  for file in $PYTHON_FILES; do
+    if grep -n "print(" "$file" | grep -v "# keep" | grep -v "#keep"; then
+      echo "⚠️  警告：$file 包含 print() 调试语句"
+      echo "   建议移除或添加 # keep 注释保留"
+    fi
+  done
+fi
+
+# 4. 检查调试日志（JavaScript/TypeScript）
+JS_FILES=$(git diff --cached --name-only --diff-filter=ACM | grep -E '\.(js|jsx|ts|tsx)$')
+if [ -n "$JS_FILES" ]; then
+  for file in $JS_FILES; do
+    if grep -n "console\.\(log\|debug\|info\)" "$file" | grep -v "// keep" | grep -v "//keep"; then
+      echo "⚠️  警告：$file 包含 console.log/debug/info 调试语句"
+      echo "   建议移除或添加 // keep 注释保留"
+    fi
+  done
+fi
+
+echo "✅ Pre-commit 检查完成"
+exit 0
